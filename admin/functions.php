@@ -1,6 +1,6 @@
 <?php
-include_once "db.php";
-include_once "variables.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/admin/db.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/admin/variables.php";
 
 // токен бота
 define('TELEGRAM_TOKEN', '1239053690:AAHYQT9rKR_i6vAxMLohrmlgl4oIC3rG71Y');
@@ -152,6 +152,24 @@ function getUserById($id){
 
     mysqli_free_result($result);
     return $row;
+}
+
+/**
+ * получить имя пользователя
+ * @param $id
+ * @return mixed|string|null
+ */
+function getUserName($id){
+    global $link;
+    $query = "SELECT `login` FROM `users` WHERE `id`LIKE \"".$id."\"";
+
+    $result = mysqli_query($link, $query);
+    if(!$result)
+        return null;
+    $row = mysqli_fetch_assoc($result);
+
+    mysqli_free_result($result);
+    return $row["login"];
 }
 
 function getUserByEmail($email){
