@@ -10,100 +10,12 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/parts/top_nav.php";
 
 <div class="container-fluid menu">
 
-
-
-
-
-
-
-
-
-
-
     <div class="row glavField">
         <div class="col-2_5 spisoc">
-
-            <!-- Image and text -->
-            <!-- <nav class="navbar navbar-light select_iscustvo">
-              <a class="navbar-brand" href="http://fmbteka.local/media/films/index.php">
-                <img src="../../img/film.png" width="30" height="30" class="d-inline-block align-top" alt="">
-              </a>
-              <a class="navbar-brand" href="http://fmbteka.local/media/music/index_music.php">
-                <img src="../../img/2music.png" width="30" height="30" class="d-inline-block align-top" alt="">
-              </a>
-              <a class="navbar-brand" href="http://fmbteka.local/media/books/index_books.php">
-                <img src="../../img/1book.png" width="30" height="30" class="d-inline-block align-top" alt="">
-              </a>
-            </nav>
-         -->
-            <div id="selectmovie2"><br><br><br><br><br>
-                <!-- <a href="index.php"><h3>Все</h3></a> -->
-                <div class="btn-group">
-                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Оружие
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Подкатегории</a>
-                        <a class="dropdown-item" href="#">Подкатегории</a>
-                        <a class="dropdown-item" href="#">Подкатегории</a>
-                        <!-- <div class="dropdown-divider"></div> --><!-- линия между пунктами меню -->
-                        <a class="dropdown-item" href="#">Подкатегории</a>
-                    </div><br><br><br><br><br>
-
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Одежда
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Подкатегории</a>
-                            <a class="dropdown-item" href="#">Подкатегории</a>
-                            <a class="dropdown-item" href="#">Подкатегории</a>
-                            <!-- <div class="dropdown-divider"></div> --><!-- линия между пунктами меню -->
-                            <a class="dropdown-item" href="#">Подкатегории</a>
-                        </div>
-                    </div><br><br><br><br><br>
-
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Патроны
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Подкатегории</a>
-                            <a class="dropdown-item" href="#">Подкатегории</a>
-                            <a class="dropdown-item" href="#">Подкатегории</a>
-                            <!-- <div class="dropdown-divider"></div> --><!-- линия между пунктами меню -->
-                            <a class="dropdown-item" href="#">Подкатегории</a>
-                        </div>
-                    </div><br><br><br><br><br>
-
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Оптика
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Подкатегории</a>
-                            <a class="dropdown-item" href="#">Подкатегории</a>
-                            <a class="dropdown-item" href="#">Подкатегории</a>
-                            <!-- <div class="dropdown-divider"></div> --> <!-- линия между пунктами меню -->
-                            <a class="dropdown-item" href="#">Подкатегории</a>
-                        </div>
-                    </div>
-                </div>
-
-
-
                 <?php
                 include_once $_SERVER["DOCUMENT_ROOT"]."/parts/left_nav.php";
                 ?>
-
-
-
-
-
-
-
             </div>
-
         </div> <!-- <div class="col-2"> -->
 
 
@@ -111,7 +23,84 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/parts/top_nav.php";
         <div class="col-9_5">
 
             <div class="container-flui">
+                <div class="row" id="cards_container">
+                    <?php
+                    $currentPage = 1;
+                    if (isset($_GET["page"]))
+                        $currentPage = $_GET["page"];
+
+                    $productsOnPage = 6;
+                    include_once $_SERVER["DOCUMENT_ROOT"]."/parts/index_cards.php";
+                    ?>
+                </div>
                 <div class="row">
+                    <div class="col-4 offset-4" id="show-more">
+                        <input type="hidden" value="<?=$currentPage;?>" id="current_page">
+                        <input type="hidden" value="<?=$productsOnPage;?>" id="products-on-page">
+                        <button class="btn btn-primary">показать еще</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <?php
+                    $category = null;
+                    $sub_cat = null;
+                    if (isset($_GET["category"]))
+                        $category = $_GET["category"];
+                    if (isset($_GET["sub"]))
+                        $sub_cat = $_GET["sub"];
+
+                    $countPage = ceil(getCountProducts($category, $sub_cat)/$productsOnPage);
+                    if ($countPage){
+                        ?>
+                        <nav aria-label="...">
+                            <ul class="pagination pagination-sm">
+                                <?php
+                                $i = 1;
+                                while ( $i <= $countPage ){
+                                    if ($i == $currentPage){
+                                        ?>
+                                        <li class="page-item active" id="pagination<?=$i;?>">
+                                      <span class="page-link">
+                                        <?=$i;?>
+                                      </span>
+                                        </li>
+                                        <?php
+                                    }else{
+                                        ?>
+                                        <li class="page-item" id="pagination<?=$i;?>">
+                                            <a class="page-link" href="shop.php?<?=$category?"category=".$category:"";?>&page=<?=$i;?>&limit=<?=$productsOnPage;?>"><?=$i;?></a>
+                                        </li>
+                                        <?php
+                                    }
+                                    $i++;
+                                }
+                                ?>
+                            </ul>
+                        </nav>
+                        <?php
+                    }
+                    ?>
+
+
+
+
+
+                </div>
+
+
+
+                <div class="row">
+
+
+
+
+
+
+
+
+
+
+
 
                     <!-- СЛАЙДЕР  -->
                     <!-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">

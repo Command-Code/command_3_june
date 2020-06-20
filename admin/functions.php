@@ -293,13 +293,15 @@ function undeleteProductsAll(){
     //UPDATE `products` SET `deleted` = '0'
 }
 
-function getCountProducts($category = null){
+function getCountProducts($category = null, $sub_cat = null){
     global $link;
     $query = "SELECT count(id) as c FROM `products` WHERE `deleted` = 0";
 
     if(!is_null($category) && $category != "0")
-        // if(!$category)
         $query .= " AND `id_category`=".$category;
+
+    if(!is_null($sub_cat) && $sub_cat != "0")
+        $query .= " AND `id_sub_category`=".$sub_cat;
 
     $result = mysqli_query($link, $query);
     $row = mysqli_fetch_assoc($result);
@@ -312,13 +314,17 @@ function getCountProducts($category = null){
  * получить продукты
  * @return array|null
  */
-function getProducts($category = null, $limit = null, $offset = null){
+function getProducts($category = null, $limit = null, $offset = null, $sub_cat = null){
     global $link;
-    $query = "SELECT `id`, `title`, `description`, `content`, `image`, `coast`, `id_category` FROM `products` WHERE `deleted` = 0";
+//    $query = "SELECT `id`, `title`, `description`, `content`, `image`, `coast`, `id_category` FROM `products` WHERE `deleted` = 0";
+    $query = "SELECT `id`,`name`,`id_category`,`id_sub_category`,`image`,`id_company`,`price`,`id_currensy` FROM `products` WHERE `deleted` = 0";
 
     if(!is_null($category) && $category != "0")
-   // if(!$category)
         $query .= " AND `id_category`=".$category;
+
+
+    if(!is_null($sub_cat) && $sub_cat != "0")
+        $query .= " AND `id_sub_category`=".$sub_cat;
 
     if (!is_null($limit)){
         if (!is_null($offset)){
@@ -328,7 +334,6 @@ function getProducts($category = null, $limit = null, $offset = null){
             }
 
     }
-    //echo $query;
     $result = mysqli_query($link, $query);
     if(!$result)
         return null;
@@ -430,6 +435,23 @@ function getCategories(){
     mysqli_free_result($result);
     return $temp_arr;
 }
+
+
+function getSubcategoriesByCategory($id_category){
+    global $link;
+    $query = "SELECT `id`, `title`, `description` FROM `sub_categories` WHERE `deleted`=0 AND `id_category`=".$id_category;
+
+    $result = mysqli_query($link, $query);
+    if(!$result)
+        return null;
+    $temp_arr = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $temp_arr[] = $row;
+    }
+    mysqli_free_result($result);
+    return $temp_arr;
+}
+
 
 /**
  * удалить категорию

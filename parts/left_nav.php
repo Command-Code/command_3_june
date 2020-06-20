@@ -1,12 +1,31 @@
-<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-    <a class="nav-link <?=(!isset($_GET["category"]))?"active":"";?>" href="index.php">Все</a>
+<div id="selectmovie2"><br><br><br><br><br>
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"]."/admin/functions.php";
 $categories = getCategories();
 foreach ($categories as $category) {
 ?>
-    <a class="nav-link <?=($_GET["category"] == $category["id"])?"active":"";?>" href="index.php?category=<?=$category["id"];?>"><?=$category["title"];?></a>
+    <div class="btn-group"  style="display: block;">
+        <button type="button" class="btn btn-info dropdown-toggle <?=($_GET["category"] == $category["id"])?" active ":"";?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <?=$category["title"];?>
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="shop.php?category=<?=$category["id"];?>">Все</a>
+            <div class="dropdown-divider"></div>
+            <?php
+                $subcats = getSubcategoriesByCategory($category["id"]);
+                if ($subcats) {
+                    foreach ($subcats as $subcat){ ?>
+                        <a class="dropdown-item" href="shop.php?category=<?=$category["id"];?>&sub=<?=$subcat["id"];?>"><?=$subcat["title"];?></a>
+                    <?php }
+                }
+            ?>
+        </div><br><br><br><br><br>
+    </div>
 <?php
 }
 ?>
 </div>
+
+
+
+
