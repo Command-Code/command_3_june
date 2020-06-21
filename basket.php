@@ -1,6 +1,8 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"]."/parts/head.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/admin/functions.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/parts/header.php";
 include_once $_SERVER["DOCUMENT_ROOT"]."/parts/top_nav.php";
+
 ?>
 
 
@@ -40,4 +42,4 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/parts/top_nav.php";
 
 
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"]."/parts/bottom.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/parts/footer.php";
