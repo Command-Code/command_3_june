@@ -15,7 +15,7 @@ if($products){
             <div class="col-lg-8 mx-auto">
                 <div class="card mb-10" style='width: 18rem;'>
 
-                    <a href="page_film.php?id=<?php echo $product['id'];?>">
+                    <a href="product.php?product=<?=$product["id"];?>">
 
                         <?php
                         if($product['image'] != "") {
@@ -33,6 +33,7 @@ if($products){
                             <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
                         </div>
                         <div class="card-footer">
+                            <button onclick="addBasket(this); return false;" class="btn btn-secondary" data-id="<?=$product["id"];?>">В корзину</button>
                             <small class="text-muted"></small>
                         </div>
                     </a>

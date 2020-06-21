@@ -352,6 +352,22 @@ function getProducts($category = null, $limit = null, $offset = null, $sub_cat =
  */
 function getProductById($id){
     global $link;
+    $query = "SELECT `id`,`name`,`id_category`,`id_sub_category`,`image`,`id_company`,`price`,`id_currensy` FROM `products` WHERE `id` = ".$id;
+
+    $result = mysqli_query($link, $query);
+    if(!$result)
+        return null;
+    $row = mysqli_fetch_assoc($result);
+
+    $row["name_cat"] = getCategoryName($row["id_category"]);
+    $row["name_sub"] = getSubcategoryName($row["id_sub_category"]);
+    $row["short"] = getCurrencyShort($row["id_currensy"]);
+    $row["manuf"] = getProduction($row["id_company"]);
+    mysqli_free_result($result);
+    return $row;
+}
+/*function getProductById($id){
+    global $link;
     $query = "SELECT `id`, `title`, `description`, `content`, `image`, `coast`, `id_category` FROM `products` WHERE `id` = ".$id;
 
     $result = mysqli_query($link, $query);
@@ -361,6 +377,29 @@ function getProductById($id){
 
     mysqli_free_result($result);
     return $row;
+}*/
+
+/**
+ * получение свойств продукта с названием свойства и единицей измерения
+ * @param $id
+ * @return array|null
+ */
+function getProductProperties($id) {
+    global $link;
+    $query = "SELECT `properties`.`title`,`properties`.`unit` , `product_properties`.`description` 
+    FROM `properties` , `product_properties` 
+    WHERE `properties`.`id` = `product_properties`.`id_property` AND `product_properties`.`id_product`=".$id." 
+    ORDER BY `properties`.`order_prop` ASC";
+
+    $result = mysqli_query($link, $query);
+    if(!$result)
+        return null;
+    $temp_arr = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $temp_arr[] = $row;
+    }
+    mysqli_free_result($result);
+    return $temp_arr;
 }
 
 /**
@@ -417,6 +456,42 @@ function deleteProduct($id){
 }
 
 
+
+
+
+/**
+ * получить название категории
+ * @param $id
+ * @return mixed|string
+ */
+function getCurrencyShort($id){
+    global $link;
+    $query = "SELECT `short_title` FROM `currensy` WHERE `id`=".$id;
+    $result = mysqli_query($link, $query);
+    $row = mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
+    return $row["short_title"];
+}
+
+/**
+ * получить название производителя, и страну
+ * @param $id
+ * @return string
+ */
+function getProduction($id){
+    global $link;
+    $query = "SELECT `companies`.`title`,`countries`.`title` AS `country` 
+    FROM `companies`, `countries` 
+    WHERE `companies`.`id_country` = `countries`.`id` AND `companies`.`id`=".$id;
+    $result = mysqli_query($link, $query);
+    $row = mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
+    $str = "<span>".$row["title"]."</span>, ".$row["country"];
+    return $str;
+}
+
+//-------------------------------категории начало
+
 /**
  * пролучить все категории
  * @return array|null
@@ -435,23 +510,6 @@ function getCategories(){
     mysqli_free_result($result);
     return $temp_arr;
 }
-
-
-function getSubcategoriesByCategory($id_category){
-    global $link;
-    $query = "SELECT `id`, `title`, `description` FROM `sub_categories` WHERE `deleted`=0 AND `id_category`=".$id_category;
-
-    $result = mysqli_query($link, $query);
-    if(!$result)
-        return null;
-    $temp_arr = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $temp_arr[] = $row;
-    }
-    mysqli_free_result($result);
-    return $temp_arr;
-}
-
 
 /**
  * удалить категорию
@@ -534,7 +592,58 @@ function viewSelectCategories($categories, $selected=null){
     }
 }
 
+//-------------------------------категории конец
 
+//-------------------------------субкатегории начало
+
+/**
+ * получить субкатегории одной категории
+ * @param $id_category
+ * @return array|null
+ */
+function getSubcategoriesByCategory($id_category){
+    global $link;
+    $query = "SELECT `id`, `title`, `description` FROM `sub_categories` WHERE `deleted`=0 AND `id_category`=".$id_category;
+
+    $result = mysqli_query($link, $query);
+    if(!$result)
+        return null;
+    $temp_arr = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $temp_arr[] = $row;
+    }
+    mysqli_free_result($result);
+    return $temp_arr;
+}
+
+function getSubcategoryById($id){
+    global $link;
+    $query = "SELECT `id`,`title`, `description`,`id_category` FROM `sub_categories` WHERE `id`=".$id;
+
+    $result = mysqli_query($link, $query);
+    if(!$result)
+        return null;
+    $row = mysqli_fetch_assoc($result);
+
+    mysqli_free_result($result);
+    return $row;
+}
+
+/**
+ * получить название субкатегории
+ * @param $id
+ * @return mixed|string
+ */
+function getSubcategoryName($id){
+    global $link;
+    $query = "SELECT `title` FROM `sub_categories` WHERE `id`=".$id;
+    $result = mysqli_query($link, $query);
+    $row = mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
+    return $row["title"];
+}
+
+//-------------------------------субкатегории конец
 
 
 
