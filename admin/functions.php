@@ -276,13 +276,36 @@ function insertOrder($order){
     $query = "INSERT INTO `orders` (`user_order`, `id_user`)
          VALUES ('".json_encode($order["basket"])."', '".$order["id_user"]."');";
     if (mysqli_query($link, $query)){
+        $order_id = mysqli_insert_id($link);
         ob_start() ;
-        message_to_telegram("Новый заказ!");
+        message_to_telegram("Новый заказ! ID ".$order_id.". ".getBasketCounts());
         ob_end_clean() ;
-        return mysqli_insert_id($link);
+        return $order_id;
     }
     return null;
 }
+
+
+
+function getBasketCounts()
+{
+    $total_price = 0;
+    $total_items = 0;
+    if (isset($_COOKIE["basket"])) {
+        $parse_basket = json_decode($_COOKIE["basket"], true);
+        $total_price = 0;
+        foreach ($parse_basket as $prod) {
+            $cur_prod = getProductById($prod["prod_id"]);
+            $total_price += $prod["count"] * $cur_prod["price"];
+            $total_items += $prod["count"];
+        }
+        return "Товаров: " . $total_items . ". Сумма: " . $total_price;
+    }
+    return "";
+}
+
+
+
 
 /* конец блок заказов */
 
