@@ -51,13 +51,14 @@
                                             $total_price = 0;
                                             foreach ($parse_basket as  $prod) {
                                                 $cur_prod = getProductById($prod["prod_id"]);
-                                                $total_price += $prod["count"] * $cur_prod["coast"];
+                                                $total_price += $prod["count"] * $cur_prod["price"];
                                                 ?>
                                             <tr>
                                                 <th scope="row"><?=$prod["prod_id"];?></th>
-                                                <td><?=$cur_prod["title"];?></td>
-                                                <td><?=getCategoryName($cur_prod["id_category"]);?></td>
-                                                <td><?=$cur_prod["coast"];?></td>
+                                                <td><?=$cur_prod["name"];?></td>
+                                                <td><?=$cur_prod["name_cat"];?>, <?=$cur_prod["name_sub"];?></td>
+                                                <td><?=$cur_prod["manuf"];?></td>
+                                                <td><?=$cur_prod["price"];?> <?=$cur_prod["short"];?></td>
                                                 <td><?=$prod["count"];?></td>
                                             </tr>
                                                 <?php

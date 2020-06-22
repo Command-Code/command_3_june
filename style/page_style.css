@@ -1,4 +1,4 @@
-.point {
+/*.point {
 	background-image: url(images/stars.png);
 	width: 300px;
 	height: 59px;
@@ -6,6 +6,10 @@
 
 #point {
 	background-image: url(images/stars2.png);
-	width: <?php echo $width; ?>px;
 	height: 59px;
+}*/
+
+#basket-table {
+	background-color: rgba(100,100,100,0.3);
+	margin-top: 10px;
 }

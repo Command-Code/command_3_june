@@ -1,60 +1,42 @@
 @import "panel.css";
 @import "basement.css";
 
-/*html{height: 100%}*/
-body{background-image:  url(../img/fon_wood.jpg) ;
-/*background-repeat: no-repeat;*/
-background-color: #c5bda6; 
+/*html, body {
+  height: 100%;
 }
-*{
-	margin: 0;
-	padding: 0;
-}
-/*.shapka a{
-	color: #f3f2f3;
-	text-decoration:none;
-}*/
-
-a {
-	color: #2e2d2e;
-}
-
-/*.imgFilm:hover {
-	background-color: #ff7777;
-}*/
-
-a:hover {
-	color: #c4a024;
-	text-decoration: none;
-	/*transition: all.5s ease;
-	-moz-transition:all.5s ease;
-	-webkit-transition:all.5s ease;
-	-ms-transition:all.5s ease;*/
-}
-a:active{color: #c4a024}
-/*Selection Block*/
-::selection{
-	background: #f58b8b; color: #fff
-};
-::-moz-selection{background: #f58b8b; color: #fff}
-/*////////////////////////////================================
-дополняю класы bootstrap
-//////////////////////////////================================== 
-MARGIN-TOP
 */
-.mt-16, .my-16 {
-    margin-top: 8.5rem!important;
+body{
+  
+  background: url(../img/fon2.jpg) no-repeat;
+  /*width: 100%;*/
+    position: relative;
+  height: 100%;
+  position: relative;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  }
+
+.wrapper {
+  position: relative;
+  min-height: 100%;
 }
+.content {
+  padding-bottom: 90px;
+}
+
 
 .col-2_5 {
     flex: 19.833335%;
-    max-width: 19.833335%;
+    max-width: 200px;
 }
 
 .col-9_5 {
 
-    flex: 80.166667%;
-    max-width: 80.166667%;
+    flex: 40.166667%;
+    max-width: 40.166667%;
 }
 
 /*клас для розмещения по чентру*/
@@ -82,16 +64,12 @@ MARGIN-TOP
 }
 /*cстили для карточки*/
 .card {
-	flex: 100%;
-    /* margin-right: 15px; */
-    /* margin-bottom: 15px; */
-    /* margin-left: 15px; */
-    margin-top: 15px;
-    max-width: 280px;
-    max-height: 625px;
-    min-width: 280px;
-    min-height: 550px;
-    width: 18rem;
+    padding: 0;
+    max-width: 200px;
+    max-height: 400%;
+    min-width: 260px;
+    min-height: 100%;
+   
 }
 /*стили для постера карточки*/
 .card_img_top {
@@ -110,36 +88,31 @@ MARGIN-TOP
 }
 .card_music {
 	flex: 100%;
-    /* margin-right: 15px; */
-    /* margin-bottom: 15px; */
-    /* margin-left: 15px; */
     margin-top: 15px;
     max-width: 280px;
     max-height: 525px;
     min-width: 280px;
     min-height: 550px;
 }
+
 /*/////////////////////////////////////////////////////////////*/
 .FILMS {
-	height: 490px;
+	  height: 400px;
     padding: 0;
     width: 100%;
 }
 
-.FILMS .body:hover {
-	background: #d2b13f;
-}
 /*======================
 начальная страница
 ========================*/
 .menu {
-	min-height: 750px;
+	min-height: 750%;
 	width: 100%;
 }
 
 #f {
 	position: absolute;
-    left: 335px;
+    left: 370px;
     top: 245px;
 }
 
@@ -164,13 +137,13 @@ MARGIN-TOP
 }
 /*блок списка*/
 .spisoc {
-	min-height: 1101px;
+	/*min-height: 1350px;*/
 	background: #656cb8c2;
 }
 /*список*/
 #selectmovie2 {
 	height: 100%;
-    margin-left: 40px;
+  margin-left: 40px;
 }
 /*стили для заголовков в списке*/
 #selectmovie2 h2 {
@@ -178,7 +151,7 @@ MARGIN-TOP
     /*стиль для выставления величины абзаца*/
 	text-indent: 30px;
     /*растояние между строк*/
-	line-height: 50px;
+	line-height: 30px;
 	/*font-style: oblique;*/
 	font-family: Arial, Serif;
 }
@@ -201,98 +174,44 @@ MARGIN-TOP
 =====================================*/
 .glavField {
 	height: 100%;
-	min-height: 1000px;
+	min-height: 100%;
 	width: 100%;
 }
+/*=======================================
+      ПАГТНАЦИЯ И ПОКАЗАТЬ ЕЩЁ
+===========================================*/
 
-/*====================
-Страница с выбраным фильмом,музыкой, книгой
-======================*/
-/*постер*/
-.kartinka {
-	margin: 20px;
-    margin-top: 30px;
-    margin-right: 40px;
-    max-height: 430px;
-    max-width: 310px;
-    float: left;
-    min-height: 430px;
-    min-width: 310px;
+#show-more {
+   /* position: absolute;
+    left: -255px;
+    top: 350px;*/
 }
 
-/*данные книжки*/
-.Book {
-    max-width: 100%;
-    max-height: 75%;
-    margin-top: 20px;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    line-height: 45px;
-    font-size: 20px;
+#pagination-naw {
+   /* position: absolute;
+    left: -165px;
+    top: 500px;*/
 }
-/*Данные фильма*/
-.Film { 
-    max-width: 100%;
-    max-height: 75%;
-    margin-top: 20px;
-    padding-top: 58px;
-    padding-bottom: 58px;
-    line-height: 45px;
-    font-size: 20px;
-}
-/*банер альбома*/
-.kartinkaMusic {
-	margin: 20px;
-	max-height: 257px;
-	max-width: 257px;
-	float: left;
-	min-height: 257px;
-	min-width: 257px;
-	margin-top: 150px;
-	margin-bottom: 150px;
-	margin-left: 150px;
-	margin-right: 150px;
-}
-/*данные альбома*/
-.Music {
-    max-width: 100%;
-    max-height: 75%;
-    margin-top: 20px;
-    padding-top: 100px;
-    padding-bottom: 100px;
-    line-height: 45px;
-    font-size: 20px;
+/*================================================
+       КАРТОЧКИ ТОВАРА
+==================================================*/
+
+#cards-sales {
+   /* position: absolute;
+    top: 40px;
+    margin-left: 205px;
+    margin-top: 62px;*/
 }
 
-.slovo_faktu {
-    font-size: 24px;
-    text-indent: 30px;
-    margin: 0; 
-}
-
-/*Описание*/
-.description {
-	max-width: 1500px;
-    font-size: 19px;
-    margin-top: 40px;
-    margin-left: 20px;
-    margin-bottom: 80px;
-    text-indent: 30px;
-    line-height: 30px;
-}
-/*Стиль для надписи "Скачать торрент"*/
-.torrentLink {
-	color: green;
-	text-align: center;
-}
 
 /*=======================================
-подключил стили для формы регистрации из bootstrap
+подключил стили для формы регистрации из bootstrap 
 ==========================================*/
 #container {
-    margin-left: 590px;
+  position: relative;
+    left: 31%;
     text-align: center;
-    top: 0;
+    top: 30px;
 }
 .form-group{
     margin-bottom: 15px;
@@ -337,8 +256,8 @@ input::-webkit-input-placeholder {
 }
 
 .main-form{
- margin-top: 30px;
-        margin: 0 auto;
+    margin-top: 30px;
+      margin: 0 auto;
     max-width: 340px;
     padding: 10px 40px;
     background:#009edf;
@@ -355,23 +274,65 @@ span.input-group-addon i {
 .login-button{
      margin-top: 5px;
 }
+
+
+/*кнопка регистрации*/
+#button-btn {
+    top: 450px;
+    left: 100px;
+  }   
+/* кнопка реферификации*/
+#btn-reverific {
+   left: 45%;
+  top: 75px;
+}
+
+/*форма авторизации*/
+#container-form {
+  top: 20px;
+}
+/*кнопка войти форма авторизации */
+#login-btn {
+  left: 66%;
+  top: 75px;
+}
+
+.ver_1 {
+    left: 360px;
+    position: relative;
+}
+.ver_2 {
+  top: 34px;
+  position: relative;
+  left: 100px;
+
+}
+
 /*=====================================
 social
 ===================================*/
-.footer {
- 
+.footer-social {
   padding: 10px 0;
 }
-.footer a {
+.footer-social a {
   color: #70726F;
   font-size: 20px;
   padding: 20px;
  /* border-right: 1px solid #70726F;*/
   transition: all .5s ease;
 }
-.footer a:first-child {
+.footer-social a:first-child {
   /*border-left: 1px solid #70726F;*/
 }
-.footer a:hover {
+.footer-social a:hover {
   color: white;
+}
+
+
+
+
+.fix-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

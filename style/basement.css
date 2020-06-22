@@ -13,6 +13,18 @@
 	margin-top: 100px;
 }
 
+.basement {
+	/*position: relative;
+	height: 270px;*/
+	background: SandyBrown;
+	padding-top: 20px;
+   /* flex-shrink: 0;*/
+}
+
+.basement a {
+	font-size: 24px;
+}
+
 /*.basement {
 	min-height: 230px;
 	background-color: #4e7ea2;
@@ -36,3 +48,14 @@
     font-size: 17px;
 }
 
+
+
+.clear-fix:before,
+.clear-fix:after {
+	content: " ";
+	display: table;
+}
+
+.clear-fix:after {
+	clear: both;
+}

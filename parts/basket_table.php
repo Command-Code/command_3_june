@@ -1,8 +1,7 @@
 <thead>
 <tr>
-    <th scope="col">#</th>
-    <th scope="col">First</th>
-    <th scope="col">Last</th>
+    <th scope="col">Название</th>
+    <th scope="col">Производитель</th>
     <th scope="col">Категория</th>
     <th scope="col">Количество</th>
     <th scope="col">Цена</th>
@@ -12,22 +11,21 @@
 <tbody>
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . "/admin/functions.php";
+$total_price = 0;
 if (isset($_COOKIE["basket"])){
     $parse_basket = json_decode($_COOKIE["basket"],true);
-
     $total_price = 0;
     foreach ($parse_basket as  $prod){
         $cur_prod = getProductById($prod["prod_id"]);
-        $total_price += $prod["count"] * $cur_prod["coast"];
+        $total_price += $prod["count"] * $cur_prod["price"];
         ?>
         <tr>
             <input type="hidden" name="basket[]" value="<?=$cur_prod["id"];?>">
-            <th scope="row"><?=$cur_prod["id"];?></th>
-            <td><?=$cur_prod["title"];?></td>
-            <td><?=$cur_prod["description"];?></td>
-            <td><?=getCategoryName($cur_prod["id_category"]);?></td>
+            <td><?=$cur_prod["name"];?></td>
+            <td><?=$cur_prod["manuf"];?></td>
+            <td><?=$cur_prod["name_cat"];?>, <?=$cur_prod["name_sub"];?></td>
             <td><?=$prod["count"];?></td>
-            <td><?=$cur_prod["coast"];?></td>
+            <td><?=$cur_prod["price"];?> <?=$cur_prod["short"];?></td>
             <td>
 
                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">

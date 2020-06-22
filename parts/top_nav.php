@@ -13,7 +13,7 @@
         </form>
 
         <span class="vhod">
-		  <h5 class="text-white h4"><a href="/register/register.php">Регистрация</a></h5>
+		  <h5 class="text-white h4"><a href="/login.php?action=registration&logout=true">Регистрация</a></h5>
                 <?php
                 if (isset($_COOKIE["user_id"])){
                     echo "<h5 class=\"text-white h4\"><a href=\"/register/exit.php\" id=\"exit-login\">".getUserName($_COOKIE["user_id"])."&#187;</a></h5>";

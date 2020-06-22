@@ -1,3 +1,4 @@
+
 var  btnShowMore = document.querySelector("#show-more");
 if (btnShowMore){
     btnShowMore.onclick = function () {
@@ -14,7 +15,7 @@ if (btnShowMore){
 
 
 function clearBasket() {
-    let container = document.querySelector("#content_column  div.container");
+    let container = document.querySelector("#content_column");
     console.log(container);
     container.innerHTML = getAjaxResponse('/empty_cookie.php');
     document.querySelector("#basket-count").innerHTML = "0";
@@ -80,7 +81,12 @@ function increaseProduct(item) {
 document.onload = initBasketCookie();
 function initBasketCookie() {
     console.log(getAjaxResponse( '/parts/add_basket.php'));
-
+    let main_footer = document.querySelector("#main_footer");
+    console.log(main_footer.offsetTop + main_footer.offsetHeight);
+    console.log(document.documentElement.clientHeight);
+    if (document.documentElement.clientHeight > main_footer.offsetTop + main_footer.offsetHeight) {
+        main_footer.classList.add("fix-footer");
+    }
 }
 
 
@@ -105,12 +111,12 @@ function sendOrder() {
             //     let working_container = document.querySelector("#working_container");
             //   working_container.innerHTML =this.response;
             console.dir(this.response);
-            let container = document.querySelector("#content_column .container");
+            let container = document.querySelector("#content_column");
             document.querySelector("#basket-count").innerHTML = "0";
             if (this.response == "ok"){
-                container.innerHTML = " <div class=\"row\">Заказ оформлен</div>";
+                container.innerHTML = " <div class=\"alert alert-success\" role=\"alert\">Заказ оформлен</div>";
             }else {
-                container.innerHTML = " <div class=\"row\">Какая то ошибка</div>";
+                container.innerHTML = "  <div class=\"alert alert-success\" role=\"alert\">Какая то ошибка</div>";
             }
             return;
         }

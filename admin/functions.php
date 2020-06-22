@@ -276,7 +276,9 @@ function insertOrder($order){
     $query = "INSERT INTO `orders` (`user_order`, `id_user`)
          VALUES ('".json_encode($order["basket"])."', '".$order["id_user"]."');";
     if (mysqli_query($link, $query)){
+        ob_start() ;
         message_to_telegram("Новый заказ!");
+        ob_end_clean() ;
         return mysqli_insert_id($link);
     }
     return null;

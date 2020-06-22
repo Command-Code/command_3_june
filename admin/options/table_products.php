@@ -27,7 +27,7 @@
                     <thead>
                     <th>ID</th>
                     <th>Название</th>
-                    <th>Описание</th>
+                    <th>Производитель</th>
                     <th>Картинка</th>
                     <th>Категория</th>
                     <th>Цена</th>
@@ -40,11 +40,11 @@
                         ?>
                         <tr>
                             <td><?=$product["id"];?></td>
-                            <td><?=$product["title"];?></td>
-                            <td><?=$product["description"];?></td>
+                            <td><?=$product["name"];?></td>
+                            <td><?=getProduction($product["id_company"]);?></td>
                             <td><?=$product["image"];?></td>
-                            <td><?=getCategoryName($product["id_category"]);?></td>
-                            <td><?=$product["coast"];?></td>
+                            <td><?=getCategoryName($product["id_category"]);?>, <?=getSubcategoryName($product["id_sub_category"]);?></td>
+                            <td><?=$product["price"];?></td>
                             <td>
                                 <div class="">
                                     <button type="button" class="btn btn-primary product-edit" data-id="<?=$product["id"];?>">Edit</button>
